@@ -1,0 +1,74 @@
+---
+title: "Household Economy"
+author: "coop711"
+date: "2015년 10월 27일"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Data
+
+```{r, Data}
+(hh.econ.11 <- matrix(c(1196.7, 1260.5, 961.3, 2545.4, 1864.6, 2113.9, 3512.5, 2325.1, 2914.9, 4621.3, 2791.7, 3762.9, 7537.0, 3654.6, 6144.2), 3))
+(rownames(hh.econ.11) <- c("소득", "소비지출", "처분가능소득"))
+(colnames(hh.econ.11) <- paste(1:5, "분위", sep=""))
+hh.econ.11
+```
+
+## Bar Plots
+
+```{r, barplots}
+barplot(hh.econ.11)
+barplot(hh.econ.11, beside = TRUE)
+barplot(hh.econ.11[c(1, 3, 2), ], beside = TRUE)
+```
+
+### Data Adjustment
+
+```{r, Data Renewed}
+(hh.econ.11 <- hh.econ.11[c(1, 3, 2), ])
+```
+
+## Bar Plots
+
+```{r, barplots renewed}
+barplot(hh.econ.11, beside = TRUE)
+```
+
+### Axes and Titles
+
+```{r, Legend and Annotation}
+barplot(hh.econ.11, beside = TRUE, yaxt = "n", col=gray(c(1/6, 1/2, 5/6)))
+axis(side = 2, at = seq(0, 7000, by = 1000), labels = 0:7, las=1)
+legend("topleft", inset = 0.1, legend = rownames(hh.econ.11), fill=gray(c(1/6, 1/2, 5/6)))
+title(main = "2011년 가계수지", xlab="소득 5분위", ylab="금액(단위, 백만원)")
+```
+
+## ggplots
+
+### Data Reshaping
+
+```{r, reshape2}
+library(reshape2)
+dimnames(hh.econ.11) <- list("소득과지출"=rownames(hh.econ.11), "소득5분위"=colnames(hh.econ.11))
+(hh.econ.melt <- melt(hh.econ.11, value.name="금액"))
+```
+
+### ggplots step by step
+
+```{r, korean fonts}
+library(ggplot2)
+source("~/Dropbox/Works/Research_Data/Doorae-master/R/theme_kr_HCR.R")
+ls()
+(g1 <- ggplot(hh.econ.melt, aes(x = 소득5분위, y = 금액, fill = 소득과지출)) + geom_bar(stat="identity"))
+(g1 <- ggplot(hh.econ.melt, aes(x = 소득5분위, y = 금액, fill = 소득과지출)) + geom_bar(stat="identity", position = "dodge"))
+(g2 <- g1 + theme_bw())
+(g3 <- g2 + theme.kr)
+(g4 <- g3 + scale_y_continuous(breaks = seq(0, 7000, by = 1000), labels = 0:7) + ylab("금액(단위:백만원)") + ggtitle("2011 가계수지"))
+(g5 <- g4 + theme(legend.position = c(0.2, 0.8)))
+(g6 <- g5 + scale_fill_grey(start = 1/6, end = 5/6))
+(g7 <- g5 + scale_fill_manual(values = c("blue", "cyan", "red")))
+```
