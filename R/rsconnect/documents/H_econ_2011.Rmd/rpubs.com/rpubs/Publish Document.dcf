@@ -1,0 +1,8 @@
+name: Publish Document
+title:
+account: rpubs
+server: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/221322/25ab811e7120456ebf205182992b8c7d
+bundleId: https://api.rpubs.com/api/v1/document/221322/25ab811e7120456ebf205182992b8c7d
+url: http://rpubs.com/kwlee58/221322/edit
+when: 1477321442.94836

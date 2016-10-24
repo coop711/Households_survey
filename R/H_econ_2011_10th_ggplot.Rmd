@@ -1,0 +1,64 @@
+---
+title: "Household Economy"
+author: "coop711"
+date: "2015년 10월 27일"
+output: html_document
+---
+
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(width=180)
+```
+
+## Data
+
+```{r, Data}
+library(xlsx)
+library(knitr)
+library(pander)
+panderOptions('table.split.table', 180)
+panderOptions('table.split.cells', Inf)
+pander(hh.econ.10th <- read.xlsx("../data/20151102192605.xlsx", 1, startRow=5, endRow = 18, colIndex = 3:32, header = FALSE))
+kable(rownames(hh.econ.10th) <- c(2003:2014, "15.14", "15.24"))
+kable(colnames(hh.econ.10th) <- paste(rep(1:10, each=3), c("분위.소득", "분위.소비지출", "분위.처분가능소득"), sep=""))
+str(hh.econ.10th)
+(hh.econ.10th.11 <- matrix(as.numeric(hh.econ.10th["2011", ]), nrow = 3))
+str(hh.econ.10th.11)
+kable(hh.econ.10th.11, row.names = FALSE, col.names = paste(1:10, "분위"), caption = "소득 분위별 가계수지(2011년)")
+dimnames(hh.econ.10th.11) <- list(c("소득", "소비지출", "처분가능소득"), paste(1:10, "분위", sep=""))
+kable(hh.econ.10th.11, caption = "소득 분위별 가계수지(2011년)")
+```
+
+### Data Rearrange
+
+```{r, Data Renewed}
+kable(hh.econ.10th.11 <- hh.econ.10th.11[c(1, 3, 2), ])
+```
+
+## ggplots
+
+### Data Reshaping
+
+```{r, reshape2}
+library(reshape2)
+dimnames(hh.econ.10th.11) <- list("소득과지출" = rownames(hh.econ.10th.11), "소득10분위" = colnames(hh.econ.10th.11))
+kable(hh.econ.10th.melt <- melt(hh.econ.10th.11, value.name = "금액"))
+```
+
+### ggplots step by step
+
+```{r, korean fonts, fig.width=12, fig.height=6}
+library(ggplot2)
+source("./theme_kr_HCR.R")
+ls()
+(g1 <- ggplot(hh.econ.10th.melt, aes(x = 소득10분위, y = 금액, fill = 소득과지출)) + geom_bar(stat = "identity"))
+(g1 <- ggplot(hh.econ.10th.melt, aes(x = 소득10분위, y = 금액, fill = 소득과지출)) + geom_bar(stat = "identity", position = "dodge"))
+(g2 <- g1 + theme_bw())
+(g3 <- g2 + theme.kr)
+(g4 <- g3 + scale_y_continuous(breaks = seq(0, 10000000, by = 1000000), labels = 0:10) + ylab("금액(단위:백만원)") + ggtitle("2011 가계수지"))
+(g5 <- g4 + theme(legend.position = c(0.2, 0.8)))
+(g6 <- g5 + scale_fill_grey(start = 1/6, end = 5/6))
+(g7 <- g5 + scale_fill_manual(values = c("blue", "cyan", "red")))
+# (g8 <- g7 + geom_line(data = data.frame(x = 1:10, y = )))
+ggsave("../pics/no_spill_over_effects_10th.png")
+```
