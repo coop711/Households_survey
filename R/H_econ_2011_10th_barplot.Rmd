@@ -1,0 +1,77 @@
+---
+title: "Household Economy"
+author: "coop711"
+date: "2015년 10월 27일"
+output: html_document
+---
+
+```{r, setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(width = 180)
+```
+
+## Data
+
+```{r, load}
+library(knitr)
+load("./hh_econ_10th.RData")
+kable(format(hh.econ.10th.11/1000, digits = 1, nsmall = 1, justify = "right", big.mark = ","), align = "r")
+kable(format(hh.econ.10th.11.2/1000, digits = 1, nsmall = 1, justify = "right", big.mark = ","), align = "r")
+rownames(hh.econ.10th.11) <- c("Market Income", "Expenditure", "Disposable Income")
+colnames(hh.econ.10th.11) <- c("1st", "2nd", "3rd", paste(4:10, "th", sep = ""))
+kable(format(hh.econ.10th.11/1000, digits = 1, nsmall = 1, justify = "right", big.mark = ","), align = "r")
+```
+
+<P style = "page-break-before:always;">
+
+## Bar Plots
+
+```{r, stacked barplots, fig.width = 12, fig.height = 6}
+par(family = "HCR Dotum LVT")
+barplot(hh.econ.10th.11)
+```
+
+```{r, barplots beside TRUE, fig.width = 12, fig.height = 6}
+par(family = "HCR Dotum LVT")
+barplot(hh.econ.10th.11, beside = TRUE)
+```
+
+<P style = "page-break-before:always;">
+
+```{r, barplots di first, fig.width = 12, fig.height = 6}
+par(family = "HCR Dotum LVT")
+barplot(hh.econ.10th.11.2, beside = TRUE)
+```
+
+<!--
+<P style = "page-break-before:always;">
+-->
+
+### Axes and Titles
+
+```{r, Legend and Annotation, fig.width = 12, fig.height = 6}
+par(family = "HCR Dotum LVT")
+barplot(hh.econ.10th.11.2, beside = TRUE, yaxt = "n", col = gray(c(1/6, 1/2, 5/6)))
+axis(side = 2, at = seq(0, 10000000, by = 1000000), labels = 0:10, las = 1)
+legend("topleft", inset = 0.1, legend = rownames(hh.econ.10th.11.2), fill = gray(c(1/6, 1/2, 5/6)))
+title(main = "2011년 가계수지", xlab = "소득 10분위", ylab = "금액(단위, 백만원)")
+```
+
+<P style = "page-break-before:always;">
+
+### Lines, colors
+
+```{r, Lines to Compare, fig.width = 12, fig.height = 6.75}
+par(family = "HCR Dotum LVT")
+# b <- barplot(hh.econ.10th.11.2, beside = TRUE, yaxt = "n", col = gray(c(1/6, 1/2, 5/6)))
+b <- barplot(hh.econ.10th.11.2, beside = TRUE, yaxt = "n", col = c("blue", "cyan", "red"))
+axis(side = 2, at = seq(0, 10000000, by = 1000000), labels = 0:10, las = 1)
+# legend("topleft", inset = 0.1, legend = rownames(hh.econ.10th.11), fill = gray(c(1/6, 1/2, 5/6)))
+legend("topleft", inset = 0.1, legend = rownames(hh.econ.10th.11.2), fill = c("blue", "cyan", "red"))
+title(main = "2011년 가계수지", xlab = "소득 10분위", ylab = "금액(단위, 백만원)")
+# lines(x = seq(2.5, 38.5, length.out=10), y = hh.econ.10th.11[2, ], lwd=5, col=gray(1/2))
+lines(x = b[2, ], y = hh.econ.10th.11.2[2, ], type = "b", pch = 24, bg = "white", col = "black", lwd = 4)
+# lines(x = b[2, ], y = hh.econ.10th.11[2, ], lwd = 8, col = gray(1/2))
+lines(x = b[3, ], y = hh.econ.10th.11.2[3, ], type = "b", pch = 25, bg = "white", col = "black", lwd = 4)
+```
+
