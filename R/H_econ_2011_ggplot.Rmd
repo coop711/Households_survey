@@ -20,12 +20,7 @@ library(knitr)
 <img src = "../pics/households_survey_5th_201144.png" width = 640/>
 
 ```{r, Data}
-(hh.econ.11 <- matrix(c(1196.7, 1260.5, 961.3, 2545.4, 1864.6, 2113.9, 3512.5, 2325.1, 2914.9, 4621.3, 2791.7, 3762.9, 7537.0, 3654.6, 6144.2), 3))
-(rownames(hh.econ.11) <- c("소득", "소비지출", "처분가능소득"))
-(colnames(hh.econ.11) <- paste(1:5, "분위", sep = ""))
-kable(hh.econ.11)
-hh.econ.11 <- hh.econ.11[c(1, 3, 2), ]
-kable(hh.econ.11)
+load("./hh_econ.RData")
 ```
 
 ## ggplots
