@@ -15,10 +15,10 @@ options(width = 180)
 ```{r, load}
 library(knitr)
 load("./hh_econ_10th.RData")
-rownames(hh.econ.10th.11) <- c("Market Income", "Expenditure", "Disposable Income")
+rownames(hh.econ.10th.11) <- c("Market Income", "Consumer Spending", "Disposable Income")
 colnames(hh.econ.10th.11) <- c("1st", "2nd", "3rd", paste(4:10, "th", sep = ""))
 kable(format(hh.econ.10th.11/1000, digits = 1, nsmall = 1, justify = "right", big.mark = ","), align = "r")
-rownames(hh.econ.10th.11.2) <- c("Market Income", "Disposable Income", "Expenditure")
+rownames(hh.econ.10th.11.2) <- c("Market Income", "Disposable Income", "Consumer Spending")
 colnames(hh.econ.10th.11.2) <- c("1st", "2nd", "3rd", paste(4:10, "th", sep = ""))
 kable(format(hh.econ.10th.11.2/1000, digits = 1, nsmall = 1, justify = "right", big.mark = ","), align = "r")
 ```

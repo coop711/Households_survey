@@ -31,14 +31,13 @@ kable(hh.econ.10th.melt <- melt(hh.econ.10th.11.2, value.name = "Amount"))
 
 ### ggplots step by step
 
-```{r, ggplot, fig.width = 9, fig.height = 5.1}
+```{r, ggplot, warning = FALSE, fig.width = 9, fig.height = 5.1}
 library(ggplot2)
 # source("./theme_kr_HCR.R")
 gg.title <- "Income and Consumer Expenditure for each Tenth (2011 4/4)"
 x.lab <- "Income Tenth"
 y.lab <- "Amount in Thousand Won"
 Income.Amount <- hh.econ.10th.melt[hh.econ.10th.melt$Income.Expense == "Market Income", "Amount"]
-legend.lab <- c("Market Income", "Consumer Spending", "Disposable Income")
 # (g1 <- ggplot(hh.econ.melt, aes(x = Income.Fifth, y = Amount, fill = Income.Expense, colour = Income.Expense, group = Income.Expense)) + 
 #  geom_bar(stat = "identity"))
 # (g1 <- ggplot(hh.econ.melt, aes(x = Income.Fifth, y = Amount, fill = Income.Expense, colour = Income.Expense, group = Income.Expense)) + 
@@ -50,20 +49,23 @@ legend.lab <- c("Market Income", "Consumer Spending", "Disposable Income")
 (g2 <- g1 + 
   theme_bw())
 (g3.1 <- g2 + 
-  geom_line(aes(group = Income.Expense), position = position_dodge(width = 1.0), size = 1))
+  geom_line(aes(group = Income.Expense, linetype = Income.Expense), position = position_dodge(width = 1.0), size = 1))
 (g3.2 <- g3.1 + 
-  geom_point(aes(group = Income.Expense), position = position_dodge(width = 1.0), shape = 4, size = 3, stroke = 1.2, show.legend = FALSE))
+  geom_point(aes(group = Income.Expense, shape = Income.Expense), position = position_dodge(width = 1.0), size = 3, stroke = 1.2, show.legend = FALSE))
 (g4 <- g3.2 + 
   scale_y_continuous(breaks = Income.Amount, labels = format(Income.Amount/1000, digits = 1, nsmall = 1, big.mark = ",")) + 
-#  scale_linetype_manual(values = c("blank", "solid", "solid")) +
-#  scale_shape_manual(values = c(NA, 4, 4)) +
-  labs(title = gg.title, x = x.lab, y = y.lab, fill = "Income or Expenses"))
-(g5 <- g4 + theme(legend.position = c(0.2, 0.8)))
-(g6 <- g5 + scale_fill_grey(start = 1/6, end = 5/6) + 
+  scale_linetype_manual(values = c("blank", "solid", "solid")) +
+  scale_shape_manual(values = c(NA, 4, 4)) +
+  labs(title = gg.title, x = x.lab, y = y.lab, fill = "Income or Expenses", linetype = "Income or Expenses"))
+(g5 <- g4 + 
+  theme(legend.position = c(0.2, 0.8)))
+(g6 <- g5 + 
+  scale_fill_grey(start = 1/6, end = 5/6) + 
   scale_colour_grey(start = 1/6, end = 5/6))
 (g7 <- g5 + 
-  scale_fill_manual(values = c("blue", "cyan", "red"), labels = legend.lab))  
-#  scale_colour_manual(values = c("blue", "cyan", "red"), labels = legend.lab))
-(g8 <- g7 + theme(legend.key = element_blank()))
+  scale_fill_manual(values = c("blue", "cyan", "red")))  
+(g8 <- g7 + 
+  guides(linetype = "none", shape = "none") +
+  theme(legend.key = element_blank()))
 ggsave("../pics/no_trickle_down_effects_10th.png")
 ```
