@@ -56,21 +56,23 @@ Income.Amount <- hh.econ.melt[hh.econ.melt$Income.Expense == "Market Income", "A
 (g2 <- g1 + 
   theme_bw())
 (g3.1 <- g2 + 
-  geom_line(aes(group = Income.Expense, linetype = Income.Expense), position = position_dodge(width = 1.0), size = 1))
+  geom_line(aes(group = Income.Expense, linetype = Income.Expense), position = position_dodge(width = 1.0), size = 1, show.legend = FALSE))
+#  geom_line(aes(group = Income.Expense, linetype = Income.Expense), position = position_dodge(width = 1.0), size = 1))
 (g3.2 <- g3.1 + 
   geom_point(aes(group = Income.Expense, shape = Income.Expense), position = position_dodge(width = 1.0), size = 3, stroke = 1.2, show.legend = FALSE))
+#  geom_point(aes(group = Income.Expense, shape = Income.Expense), position = position_dodge(width = 1.0), size = 3, stroke = 1.2))
 (g4 <- g3.2 + 
   scale_y_continuous(breaks = Income.Amount, labels = format(Income.Amount, digits = 1, nsmall = 1, big.mark = ",")) + 
   scale_linetype_manual(values = c("blank", "solid", "solid")) +
   scale_shape_manual(values = c(NA, 4, 4)) +
-  labs(title = gg.title, x = x.lab, y = y.lab, fill = "Income or Expenses", linetype = "Income or Expenses"))
+  labs(title = gg.title, x = x.lab, y = y.lab, fill = "Income or Expenses", linetype = "Income or Expenses", shape = "Income or Expenses"))
 (g5 <- g4 + theme(legend.position = c(0.2, 0.8)))
 (g6 <- g5 + scale_fill_grey(start = 1/6, end = 5/6) + 
   scale_colour_grey(start = 1/6, end = 5/6))
 (g7 <- g5 + 
   scale_fill_manual(values = c("blue", "cyan", "red")))  
 (g8 <- g7 + 
-  guides(linetype = "none", shape = "none") +
+#  guides(linetype = "none", shape = "none") +
   theme(legend.key = element_blank()))
 ```
 
