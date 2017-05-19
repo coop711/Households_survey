@@ -24,19 +24,19 @@ kable(format(hh.econ.10th.11.2/1000, digits = 1, nsmall = 1, justify = "right", 
 ## Bar Plots
 
 ```{r, stacked barplots, fig.width = 12, fig.height = 6}
-par(family = "HCR Dotum LVT")
+par(family = "")
 barplot(hh.econ.10th.11)
 ```
 
 ```{r, barplots beside TRUE, fig.width = 12, fig.height = 6}
-par(family = "HCR Dotum LVT")
+par(family = "")
 barplot(hh.econ.10th.11, beside = TRUE)
 ```
 
 <P style = "page-break-before:always;">
 
 ```{r, barplots di first, fig.width = 12, fig.height = 6}
-par(family = "HCR Dotum LVT")
+par(family = "")
 barplot(hh.econ.10th.11.2, beside = TRUE)
 ```
 
@@ -47,7 +47,7 @@ barplot(hh.econ.10th.11.2, beside = TRUE)
 ### Axes and Titles
 
 ```{r, Legend and Annotation, fig.width = 12, fig.height = 6}
-par(family = "HCR Dotum LVT")
+par(family = "")
 barplot(hh.econ.10th.11.2, beside = TRUE, yaxt = "n", col = gray(c(1/6, 1/2, 5/6)))
 axis(side = 2, at = seq(0, 10000000, by = 1000000), labels = 0:10, las = 1)
 legend("topleft", inset = 0.1, legend = rownames(hh.econ.10th.11.2), fill = gray(c(1/6, 1/2, 5/6)))
@@ -59,7 +59,7 @@ title(main = "2011년 가계수지", xlab = "소득 10분위", ylab = "금액(�
 ### Lines, colors
 
 ```{r, Lines to Compare, fig.width = 12, fig.height = 6.75}
-par(family = "HCR Dotum LVT")
+par(family = "")
 # b <- barplot(hh.econ.10th.11.2, beside = TRUE, yaxt = "n", col = gray(c(1/6, 1/2, 5/6)))
 b <- barplot(hh.econ.10th.11.2, beside = TRUE, yaxt = "n", col = c("blue", "cyan", "red"))
 axis(side = 2, at = seq(0, 10000000, by = 1000000), labels = 0:10, las = 1)
