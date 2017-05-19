@@ -45,26 +45,75 @@ Income.Amount <- hh.econ.10th.melt[hh.econ.10th.melt$Income.Expense == "Market I
 #  geom_bar(stat = "identity", position = "dodge"))
 (g1 <- ggplot(hh.econ.10th.melt, aes(x = Income.Tenths, y = Amount, fill = Income.Expense)) + 
   geom_bar(stat = "identity"))
+```
+
+<P style = "page-break-before:always">
+
+```{r, , fig.width = 9, fig.height = 5.1}
 (g1 <- ggplot(hh.econ.10th.melt, aes(x = Income.Tenths, y = Amount, fill = Income.Expense)) + 
   geom_bar(stat = "identity", position = "dodge"))
+```
+
+<P style = "page-break-before:always">
+
+```{r, fig.width = 9, fig.height = 5.1}
 (g2 <- g1 + 
   theme_bw())
+```
+
+<P style = "page-break-before:always">
+
+```{r, fig.width = 9, fig.height = 5.1}
 (g3.1 <- g2 + 
-  geom_line(aes(group = Income.Expense, linetype = Income.Expense), position = position_dodge(width = 1.0), size = 1, show.legend = FALSE))
+  geom_line(aes(group = Income.Expense, linetype = Income.Expense), position = position_dodge(width = 1.0), size = 1, na.rm = TRUE, show.legend = FALSE))
+```
+
+<P style = "page-break-before:always">
+
+```{r, fig.width = 9, fig.height = 5.1}
 (g3.2 <- g3.1 + 
-  geom_point(aes(group = Income.Expense, shape = Income.Expense), position = position_dodge(width = 1.0), size = 3, stroke = 1.2, show.legend = FALSE))
+  geom_point(aes(group = Income.Expense, shape = Income.Expense), position = position_dodge(width = 1.0), size = 3, stroke = 1.2, na.rm = TRUE, show.legend = FALSE))
+```
+
+<P style = "page-break-before:always">
+
+```{r, fig.width = 9, fig.height = 5.1}
 (g4 <- g3.2 + 
-  scale_y_continuous(breaks = Income.Amount, labels = format(Income.Amount/1000, digits = 1, nsmall = 1, big.mark = ",")) + 
+  scale_y_continuous(breaks = Income.Amount, 
+                     labels = format(Income.Amount/1000, 
+                                     digits = 1, 
+                                     nsmall = 1, 
+                                     big.mark = ",")) + 
   scale_linetype_manual(values = c("blank", "solid", "solid")) +
   scale_shape_manual(values = c(NA, 4, 4)) +
   labs(title = gg.title, x = x.lab, y = y.lab, fill = "Income or Expenses"))
+```
+
+<P style = "page-break-before:always">
+
+```{r, fig.width = 9, fig.height = 5.1}
 (g5 <- g4 + 
   theme(legend.position = c(0.2, 0.8)))
+```
+
+<P style = "page-break-before:always">
+
+```{r, fig.width = 9, fig.height = 5.1}
 (g6 <- g5 + 
   scale_fill_grey(start = 1/6, end = 5/6) + 
   scale_colour_grey(start = 1/6, end = 5/6))
+```
+
+<P style = "page-break-before:always">
+
+```{r, fig.width = 9, fig.height = 5.1}
 (g7 <- g5 + 
   scale_fill_manual(values = c("blue", "cyan", "red"))) 
+```
+
+<P style = "page-break-before:always">
+
+```{r, fig.width = 9, fig.height = 5.1}
 (g8 <- g7 + 
   theme(legend.key = element_blank()))
 ggsave("../pics/no_trickle_down_effects_10th.png")
