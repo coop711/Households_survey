@@ -43,15 +43,20 @@ Income.Amount <- hh.econ.10th.melt[hh.econ.10th.melt$Income.Expense == "Market I
 #  geom_bar(stat = "identity"))
 # (g1 <- ggplot(hh.econ.melt, aes(x = Income.Fifth, y = Amount, fill = Income.Expense, colour = Income.Expense, group = Income.Expense)) + 
 #  geom_bar(stat = "identity", position = "dodge"))
-(g1 <- ggplot(hh.econ.10th.melt, aes(x = Income.Tenths, y = Amount, fill = Income.Expense)) + 
+(g1 <- ggplot(hh.econ.10th.melt, aes(x = Income.Tenths, 
+                                     y = Amount, 
+                                     fill = Income.Expense)) + 
   geom_bar(stat = "identity"))
 ```
 
 <P style = "page-break-before:always">
 
 ```{r, , fig.width = 9, fig.height = 5.1}
-(g1 <- ggplot(hh.econ.10th.melt, aes(x = Income.Tenths, y = Amount, fill = Income.Expense)) + 
-  geom_bar(stat = "identity", position = "dodge"))
+(g1 <- ggplot(hh.econ.10th.melt, aes(x = Income.Tenths, 
+                                     y = Amount, 
+                                     fill = Income.Expense)) + 
+  geom_bar(stat = "identity", 
+           position = "dodge"))
 ```
 
 <P style = "page-break-before:always">
@@ -65,14 +70,23 @@ Income.Amount <- hh.econ.10th.melt[hh.econ.10th.melt$Income.Expense == "Market I
 
 ```{r, fig.width = 9, fig.height = 5.1}
 (g3.1 <- g2 + 
-  geom_line(aes(group = Income.Expense, linetype = Income.Expense), position = position_dodge(width = 1.0), size = 1, na.rm = TRUE, show.legend = FALSE))
+  geom_line(aes(group = Income.Expense, linetype = Income.Expense), 
+            position = position_dodge(width = 1.0), 
+            size = 1, 
+            na.rm = TRUE, 
+            show.legend = FALSE))
 ```
 
 <P style = "page-break-before:always">
 
 ```{r, fig.width = 9, fig.height = 5.1}
 (g3.2 <- g3.1 + 
-  geom_point(aes(group = Income.Expense, shape = Income.Expense), position = position_dodge(width = 1.0), size = 3, stroke = 1.2, na.rm = TRUE, show.legend = FALSE))
+  geom_point(aes(group = Income.Expense, shape = Income.Expense), 
+             position = position_dodge(width = 1.0), 
+             size = 3, 
+             stroke = 1.2, 
+             na.rm = TRUE, 
+             show.legend = FALSE))
 ```
 
 <P style = "page-break-before:always">
@@ -86,7 +100,10 @@ Income.Amount <- hh.econ.10th.melt[hh.econ.10th.melt$Income.Expense == "Market I
                                      big.mark = ",")) + 
   scale_linetype_manual(values = c("blank", "solid", "solid")) +
   scale_shape_manual(values = c(NA, 4, 4)) +
-  labs(title = gg.title, x = x.lab, y = y.lab, fill = "Income or Expenses"))
+   labs(title = gg.title, 
+        x = x.lab, 
+        y = y.lab, 
+        fill = "Income or Expenses"))
 ```
 
 <P style = "page-break-before:always">
@@ -108,13 +125,15 @@ Income.Amount <- hh.econ.10th.melt[hh.econ.10th.melt$Income.Expense == "Market I
 
 ```{r, fig.width = 9, fig.height = 5.1}
 (g7 <- g5 + 
-  scale_fill_manual(values = c("blue", "cyan", "red"))) 
+  scale_fill_manual(values = c("blue", "turquoise1", "red"))) 
 ```
 
 <P style = "page-break-before:always">
 
 ```{r, fig.width = 9, fig.height = 5.1}
 (g8 <- g7 + 
-  theme(legend.key = element_blank()))
+#  theme(legend.key = element_blank()))
+#  theme(legend.key = element_rect(fill = "black", colour = "white")))
+  theme(legend.box.background = element_rect()))
 ggsave("../pics/no_trickle_down_effects_10th.png")
 ```

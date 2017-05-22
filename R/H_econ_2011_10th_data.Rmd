@@ -13,12 +13,14 @@ options(width = 180)
 ## Data
 
 ```{r, library}
-library(xlsx)
+# library(xlsx)
+library(openxlsx)
 library(knitr)
 ```
 
 ```{r, Data}
-hh.econ.10th <- read.xlsx("../data/20151102192605.xlsx", 1, startRow = 5, endRow = 18, colIndex = 3:32, header = FALSE)
+# hh.econ.10th <- read.xlsx("../data/20151102192605.xlsx", 1, startRow = 5, endRow = 18, colIndex = 3:32, header = FALSE)
+hh.econ.10th <- read.xlsx("../data/20151102192605.xlsx", sheet = 1, startRow = 5, rows = 5:18, cols = 3:32,colNames = FALSE)
 str(hh.econ.10th)
 kable(hh.econ.10th[, 1:15])
 kable(hh.econ.10th[, 16:30])
